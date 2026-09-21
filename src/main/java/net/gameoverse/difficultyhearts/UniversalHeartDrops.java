@@ -37,6 +37,10 @@ public final class UniversalHeartDrops {
         roll(level, HeartsConfig.get().chestChance, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
     }
 
+    public static void rollFishing(ServerLevel level, double x, double y, double z) {
+        roll(level, HeartsConfig.get().fishingChance, x, y, z);
+    }
+
     public static void rollBlockBreak(ServerLevel level, BlockPos pos, BlockState state) {
         HeartsConfig config = HeartsConfig.get();
         float chance;

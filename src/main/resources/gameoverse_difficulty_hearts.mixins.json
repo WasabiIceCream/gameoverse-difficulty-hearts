@@ -6,7 +6,8 @@
 		"EnchantmentHelperMixin",
 		"AffixLootModifierMixin",
 		"BlockItemMixin",
-		"RandomizableContainerMixin"
+		"RandomizableContainerMixin",
+		"FishingHookMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

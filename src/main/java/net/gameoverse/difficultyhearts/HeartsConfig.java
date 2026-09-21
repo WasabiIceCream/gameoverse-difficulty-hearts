@@ -29,6 +29,7 @@ public final class HeartsConfig {
     public float chestChance = 0.01F;
     public float matureCropChance = 0.002F;
     public float generalBlockChance = 0.0005F;
+    public float fishingChance = 0.01F;
 
     public static synchronized HeartsConfig get() {
         if (instance == null) {
