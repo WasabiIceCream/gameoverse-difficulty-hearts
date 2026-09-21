@@ -7,6 +7,5 @@ public class GameoverseDifficultyHearts implements ModInitializer {
     @Override
     public void onInitialize() {
         LevelingAPI.registerPlayerLevelProvider(new HeartsLevelProvider());
-        TierSync.register();
     }
 }

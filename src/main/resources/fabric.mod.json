@@ -17,6 +17,9 @@
       "net.gameoverse.difficultyhearts.GameoverseDifficultyHearts"
     ]
   },
+  "mixins": [
+    "gameoverse_difficulty_hearts.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.19.5",
     "fabric-api": "*",

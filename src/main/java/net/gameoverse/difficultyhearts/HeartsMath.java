@@ -21,4 +21,13 @@ public final class HeartsMath {
     public static int level(double hearts) {
         return (int) Math.floor((hearts - BASELINE_HEARTS) / HEARTS_PER_LEVEL);
     }
+
+    /**
+     * Non-negative version of level(), for loot/reward bonuses: extra hearts
+     * should never make loot worse for casual/low-heart players, only ever
+     * better for players who pushed above the baseline.
+     */
+    public static int lootBonus(double hearts) {
+        return Math.max(0, level(hearts));
+    }
 }
