@@ -21,32 +21,37 @@ import net.minecraft.world.level.block.state.BlockState;
  * Apotheosis's own wrap of the same method. Each source here hooks its own
  * independent, non-wrapping Fabric event/injection point instead, so there
  * is nothing to compose (safely or otherwise) with any other mod's mixin.
+ * <p>
+ * Rates themselves live in HeartsConfig (config/gameoverse_difficulty_hearts.json),
+ * not hardcoded here, so they're tunable without a rebuild.
  */
 public final class UniversalHeartDrops {
-    private static final float KILL_CHANCE = 0.005F;
-    private static final float CHEST_CHANCE = 0.01F;
-    private static final float MATURE_CROP_CHANCE = 0.002F;
-    private static final float GENERAL_BLOCK_CHANCE = 0.0005F;
-
     private UniversalHeartDrops() {
     }
 
     public static void rollKill(ServerLevel level, double x, double y, double z) {
-        roll(level, KILL_CHANCE, x, y, z);
+        roll(level, HeartsConfig.get().killChance, x, y, z);
     }
 
     public static void rollChest(ServerLevel level, BlockPos pos) {
-        roll(level, CHEST_CHANCE, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+        roll(level, HeartsConfig.get().chestChance, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
     }
 
     public static void rollBlockBreak(ServerLevel level, BlockPos pos, BlockState state) {
+        HeartsConfig config = HeartsConfig.get();
         float chance;
-        if (state.getBlock() instanceof CropBlock crop && crop.isMaxAge(state)) {
+        if (state.getBlock() instanceof CropBlock crop) {
+            if (!crop.isMaxAge(state)) {
+                // Immature crops never drop, full stop - not eligible for
+                // the general-block placement fallback below. Clearing your
+                // own unripe farm shouldn't have any chance at all.
+                return;
+            }
             // Maturity itself proves real elapsed growth time, regardless of
             // who planted the seed - no placement check needed.
-            chance = MATURE_CROP_CHANCE;
+            chance = config.matureCropChance;
         } else if (!PlacedBlocks.isPlaced(level, pos)) {
-            chance = GENERAL_BLOCK_CHANCE;
+            chance = config.generalBlockChance;
         } else {
             return;
         }
