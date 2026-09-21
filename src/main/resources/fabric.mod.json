@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "gameoverse_difficulty_hearts",
+  "version": "${version}",
+
+  "name": "Gameoverse Difficulty Hearts",
+  "description": "Server-side bridge registering a Dynamic Difficulty PlayerLevelProvider driven by the gameoverse_hearts datapack's Heart Crystal system - more hearts means harder nearby mobs, fewer hearts means easier ones.",
+  "authors": [
+    "WasabiIceCream"
+  ],
+
+  "license": "MIT",
+
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "net.gameoverse.difficultyhearts.GameoverseDifficultyHearts"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "fabric-api": "*",
+    "minecraft": ">=26.1",
+    "java": ">=25",
+    "dynamic_difficulty": "*"
+  }
+}
