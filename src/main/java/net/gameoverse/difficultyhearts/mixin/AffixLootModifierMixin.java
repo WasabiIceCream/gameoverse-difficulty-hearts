@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 /**
- * Boosts the chance Apotheosis rolls for an affix item to drop at all on a
- * player kill, scaled by the killer's current hearts. Rarity/World Tier
+ * Boosts the chance Apotheosis rolls for an affix item to drop at all, on
+ * both player kills and chest opens, scaled by hearts. Rarity/World Tier
  * resolution downstream of this roll is untouched - this only affects
  * *whether* an affix item drops, never what tier it's allowed to be, since
  * that stays gated by the player's own actually-earned World Tier.
@@ -23,7 +23,15 @@ import org.spongepowered.asm.mixin.injection.At;
  * Each heart-derived level adds 5 percentage points to the roll, capped at
  * 100%. Chosen to be a real, felt bonus without guaranteeing a drop outright
  * even at high hearts (Apotheosis's base chances are already fairly low
- * per-kill).
+ * per-roll).
+ * <p>
+ * Which LootContext param carries the relevant player differs by context
+ * (confirmed by decompiling vanilla's actual RandomizableContainer and
+ * LootContext-building code for this exact version, not assumed): a mob
+ * kill sets LAST_DAMAGE_PLAYER to the killer (THIS_ENTITY there is the dying
+ * mob, not a player); a chest open sets THIS_ENTITY to the opening player
+ * instead (RandomizableContainer#unpackLootTable). The two contexts never
+ * overlap, so checking both in order is safe.
  */
 @Mixin(AffixLootModifier.class)
 public abstract class AffixLootModifierMixin {
@@ -37,7 +45,8 @@ public abstract class AffixLootModifierMixin {
         )
     )
     private float gameoverse$boostAffixChance(float original, ObjectArrayList<ItemStack> generatedLoot, LootContext ctx, GenContext gCtx) {
-        if (!(ctx.getOptionalParameter(LootContextParams.LAST_DAMAGE_PLAYER) instanceof ServerPlayer player)) {
+        ServerPlayer player = gameoverse$relevantPlayer(ctx);
+        if (player == null) {
             return original;
         }
 
@@ -48,5 +57,15 @@ public abstract class AffixLootModifierMixin {
         }
 
         return Math.min(1.0F, original + bonusLevel * BONUS_PER_LEVEL);
+    }
+
+    private static ServerPlayer gameoverse$relevantPlayer(LootContext ctx) {
+        if (ctx.getOptionalParameter(LootContextParams.LAST_DAMAGE_PLAYER) instanceof ServerPlayer killer) {
+            return killer;
+        }
+        if (ctx.getOptionalParameter(LootContextParams.THIS_ENTITY) instanceof ServerPlayer opener) {
+            return opener;
+        }
+        return null;
     }
 }
