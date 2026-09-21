@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "Gameoverse Difficulty Hearts",
-  "description": "Server-side bridge registering a Dynamic Difficulty PlayerLevelProvider driven by the gameoverse_hearts datapack's Heart Crystal system - more hearts means harder nearby mobs, fewer hearts means easier ones.",
+  "description": "Server-side bridge driven by the gameoverse_hearts datapack's Heart Crystal system: registers a Dynamic Difficulty PlayerLevelProvider (more hearts means harder nearby mobs) and syncs the player's Apotheosis World Tier to their heart count (more hearts means better loot odds and stronger tier buffs).",
   "authors": [
     "WasabiIceCream"
   ],
@@ -22,6 +22,7 @@
     "fabric-api": "*",
     "minecraft": ">=26.1",
     "java": ">=25",
-    "dynamic_difficulty": "*"
+    "dynamic_difficulty": "*",
+    "apotheosis": "*"
   }
 }

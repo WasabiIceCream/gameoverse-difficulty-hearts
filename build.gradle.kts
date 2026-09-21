@@ -27,6 +27,12 @@ dependencies {
     compileOnly("dev.muon.dynamic_difficulty:dynamic_difficulty-fabric:${project.property("dynamic_difficulty_version")}") {
         isTransitive = false
     }
+
+    // This server's own Apotheosis Fabric port (mod-dev/apotheosis-fabric) isn't
+    // published anywhere - compileOnly against the actual installed jar, copied
+    // here as a reference jar (not committed, see .gitignore), provided at
+    // runtime by the real installed mod.
+    compileOnly(files("reference-jars/apotheosis-adventure-fabric-0.1.0.jar"))
 }
 
 java {
