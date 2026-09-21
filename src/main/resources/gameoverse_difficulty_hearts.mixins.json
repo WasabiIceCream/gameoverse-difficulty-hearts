@@ -6,7 +6,7 @@
 		"EnchantmentHelperMixin",
 		"AffixLootModifierMixin",
 		"BlockItemMixin",
-		"UniversalHeartDropMixin"
+		"RandomizableContainerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
