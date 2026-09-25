@@ -10,6 +10,8 @@ import net.minecraft.server.level.ServerPlayer;
 public class GameoverseDifficultyHearts implements ModInitializer {
     @Override
     public void onInitialize() {
+        // Must run before any world loads; see PlacedBlocks.init().
+        PlacedBlocks.init();
         LevelingAPI.registerPlayerLevelProvider(new HeartsLevelProvider());
 
         ServerLivingEntityEvents.AFTER_DEATH.register((entity, damageSource) -> {

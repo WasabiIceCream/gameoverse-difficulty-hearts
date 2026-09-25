@@ -37,6 +37,18 @@ public final class PlacedBlocks {
     private PlacedBlocks() {
     }
 
+    /**
+     * Forces this class to load, and so PLACED to register, during mod
+     * init. The registration lives in a static field, which Java only
+     * initializes on first use of the class - that used to be the first
+     * block place/break after boot, so any chunk loaded before then (e.g.
+     * on a player's join) hit "unknown attachment type
+     * gameoverse:placed_blocks" and silently dropped its saved placed-block
+     * markers (seen on production 2026-09-25, 18 chunks in one join).
+     */
+    public static void init() {
+    }
+
     private static List<Long> toList(LongSet set) {
         return new ArrayList<>(set);
     }
