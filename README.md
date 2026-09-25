@@ -52,6 +52,31 @@ git history rather than squashed, since it's a useful real-world example
 of why two mods wrapping the same consumer parameter isn't automatically
 safe.
 
+## A second real bug: firing from the player's own storage chests
+
+Found live 2026-09-25 - the user reported that after weeks of dungeon
+crawling, they hadn't found a single Heart Crystal, despite the
+mechanic being intended to be commonly obtainable. Root cause was two
+compounding issues:
+
+1. `chestChance` (`0.01`) was simply too low for a "should find roughly
+   one per dungeon crawl" experience against a typical dungeon's small
+   handful of loot chests. Raised to `0.1` (the user's own choice among
+   a couple of options) in `config/gameoverse_difficulty_hearts.json`.
+2. A real bug made the drop chance apply to *every chest a player ever
+   opened*, not just genuine loot chests - diluting even the raised
+   rate far below what it looked like on paper. `RandomizableContainerMixin`
+   injected at `TAIL` of vanilla's own `unpackLootTable`, which runs
+   unconditionally on *every* container open; only its own *internal*
+   `getLootTable() != null` check gates whether real loot generation
+   happens (a plain storage chest always has a null loot table, so it
+   silently takes the no-op branch every time). A `TAIL` injection
+   fires regardless of which branch ran, so the roll happened even
+   when opening the player's own long-emptied home storage. Fixed by
+   moving the injection to `HEAD` and checking `getLootTable() != null`
+   there - the real pre-open state, read before vanilla's own body
+   clears it via `setLootTable(null)` partway through.
+
 ## License
 
 MIT.
