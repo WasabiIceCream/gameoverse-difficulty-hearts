@@ -7,7 +7,8 @@
 		"AffixLootModifierMixin",
 		"BlockItemMixin",
 		"RandomizableContainerMixin",
-		"FishingHookMixin"
+		"FishingHookMixin",
+		"PassiveMobLevelsMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

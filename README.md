@@ -77,6 +77,18 @@ compounding issues:
    there - the real pre-open state, read before vanilla's own body
    clears it via `setLootTable(null)` partway through.
 
+## Peaceful mobs get no level (1.5.2)
+
+Dynamic Difficulty's "cancel levels for passives" option only skips `Animal`s with no attack
+damage, so fish, squid, bats, villagers, wandering traders and allays were still leveled. With
+that option on, `PassiveMobLevelsMixin` extends it to any non-hostile mob with no attack damage,
+plus anything in `#gameoverse_difficulty_hearts:peaceful` (the allay, which carries an
+attack-damage attribute but never attacks). Mobs that fight back (wolves, bees, polar bears,
+golems, goats, dolphins) keep their levels, and Dynamic Difficulty's own
+`#dynamic_difficulty:passive_whitelist` still opts a mob back in. Checked with
+`/dynamic_difficulty level get`: villager, cod, squid, bat, wandering trader, allay and cow
+unleveled; wolf, zombie and iron golem leveled.
+
 ## License
 
 MIT.
