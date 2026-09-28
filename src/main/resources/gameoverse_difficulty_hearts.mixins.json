@@ -8,7 +8,8 @@
 		"BlockItemMixin",
 		"RandomizableContainerMixin",
 		"FishingHookMixin",
-		"PassiveMobLevelsMixin"
+		"PassiveMobLevelsMixin",
+		"StaleLevelMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

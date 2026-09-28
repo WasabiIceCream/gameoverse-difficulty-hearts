@@ -89,6 +89,12 @@ golems, goats, dolphins) keep their levels, and Dynamic Difficulty's own
 `/dynamic_difficulty level get`: villager, cod, squid, bat, wandering trader, allay and cow
 unleveled; wolf, zombie and iron golem leveled.
 
+1.5.3 adds `StaleLevelMixin`: mobs leveled before 1.5.2 keep Dynamic Difficulty's persistent
+level attachment, so `LevelingSystem.hasLevel` now answers "no" for any non-player that can't
+have a level. That level is then never synced to clients, used for extra XP or loot, or matched by
+level loot conditions. (The client-side "hide the nameplate of mobs with no level" part lives in
+`gameoverse-content-fixes`, since this mod is server-only.)
+
 ## License
 
 MIT.
