@@ -13,6 +13,7 @@ public class GameoverseDifficultyHearts implements ModInitializer {
         // Must run before any world loads; see PlacedBlocks.init().
         PlacedBlocks.init();
         LevelingAPI.registerPlayerLevelProvider(new HeartsLevelProvider());
+        LevelingAPI.registerPlayerLevelProvider(new WorldTierLevelProvider());
 
         ServerLivingEntityEvents.AFTER_DEATH.register((entity, damageSource) -> {
             if (damageSource.getEntity() instanceof ServerPlayer && entity.level() instanceof ServerLevel level) {

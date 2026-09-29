@@ -30,6 +30,8 @@ public final class HeartsConfig {
     public float matureCropChance = 0.002F;
     public float generalBlockChance = 0.0005F;
     public float fishingChance = 0.01F;
+    /** Mob levels added around a player per Apotheosis World Tier above Haven (Frontier 1x ... Pinnacle 4x). */
+    public int levelsPerWorldTier = 10;
 
     public static synchronized HeartsConfig get() {
         if (instance == null) {

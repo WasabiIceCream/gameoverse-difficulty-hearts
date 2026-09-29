@@ -32,7 +32,7 @@ dependencies {
     // published anywhere - compileOnly against the actual installed jar, copied
     // here as a reference jar (not committed, see .gitignore), provided at
     // runtime by the real installed mod.
-    compileOnly(files("reference-jars/apotheosis-adventure-fabric-0.1.0.jar"))
+    compileOnly(files("reference-jars/apotheosis-adventure-fabric-0.3.0.jar"))
 
     // fzzy_config (Dynamic Difficulty's config library), for reading its passive-mob toggle in
     // PassiveMobLevelsMixin. Same reference-jar arrangement as above.
