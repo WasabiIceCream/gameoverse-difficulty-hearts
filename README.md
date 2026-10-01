@@ -98,3 +98,13 @@ level loot conditions. (The client-side "hide the nameplate of mobs with no leve
 ## License
 
 MIT.
+
+## 1.6.1: biome bonuses follow the dimension's switch
+
+Dynamic Difficulty's dimension files can turn biome bonuses off (`apply_level_bonuses.biome: false`; this server's
+Overworld since 2026-09-30, see `gameoverse-dimension-difficulty`). Mob leveling honours it, but
+`LocationBonusUtils.getBiomeAt` didn't, so the area level shown to players ("Lv. N" when entering a biome) and
+`LevelingAPI.getLevelAt` still added the biome's bonus: a savanna by spawn showed 5-6 while its mobs were level 1.
+`BiomeBonusSwitchMixin` returns a zero bonus (same biome id) from `getBiomeAt` when the switch is off. Builds against
+the installed Dynamic Difficulty 1.3.3 jar (`reference-jars/`), which has `DimensionLevelingSettingsStore`; the maven
+artifact (1.3.2) doesn't.

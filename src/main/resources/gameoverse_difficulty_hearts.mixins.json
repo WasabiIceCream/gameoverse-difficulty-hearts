@@ -9,7 +9,8 @@
 		"RandomizableContainerMixin",
 		"FishingHookMixin",
 		"PassiveMobLevelsMixin",
-		"StaleLevelMixin"
+		"StaleLevelMixin",
+		"BiomeBonusSwitchMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

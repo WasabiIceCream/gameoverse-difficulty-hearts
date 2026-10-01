@@ -24,9 +24,9 @@ dependencies {
     // (modmenu, fzzy_config, mixinsquared) aren't needed to compile against
     // the public API surface (LevelingAPI/PlayerLevelProvider) and aren't on
     // any repository declared here, so they're excluded rather than resolved.
-    compileOnly("dev.muon.dynamic_difficulty:dynamic_difficulty-fabric:${project.property("dynamic_difficulty_version")}") {
-        isTransitive = false
-    }
+    // The installed 1.3.3 jar rather than the maven artifact (1.3.2): BiomeBonusSwitchMixin needs
+    // DimensionLevelingSettingsStore, which 1.3.2 doesn't have. Same reference-jar arrangement as below.
+    compileOnly(files("reference-jars/dynamic_difficulty-fabric-1.3.3+26.1.2.jar"))
 
     // This server's own Apotheosis Fabric port (mod-dev/apotheosis-fabric) isn't
     // published anywhere - compileOnly against the actual installed jar, copied
